@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 function App() {
 
+  const [heroes, setHeroes] = useState([]);
+
   const consultarAPI = async () => {
 
     const busqueda = 'characters';
@@ -13,9 +15,22 @@ function App() {
     const datos = await api.json();
 
     datos.data.results.map(item =>{
-        console.log(item.name);
+      addHeroe(item);
     });
   }
+
+  const addHeroe = heroe => {
+    setHeroes([
+      ...heroes,
+      {
+        id: heroe.id,
+        name: heroe.name,
+        url: `${heroe.thumbnail.path}.${heroe.thumbnail.extension}`
+      }
+    ])
+  }
+
+  console.log(heroes);
 
   return (
     <div>
